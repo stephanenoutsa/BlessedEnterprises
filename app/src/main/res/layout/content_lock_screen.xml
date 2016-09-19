@@ -22,6 +22,7 @@
         android:background="@color/colorPrimaryDark"
         android:id="@+id/enterCode"
         android:gravity="center"
+        android:padding="5dp"
         android:layout_marginBottom="10dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
