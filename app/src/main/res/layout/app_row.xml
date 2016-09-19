@@ -12,6 +12,7 @@
 
     <TextView
         android:id="@+id/appLabel"
+        android:textColor="@android:color/darker_gray"
         android:layout_below="@+id/appIcon"
         android:layout_centerHorizontal="true"
         android:gravity="center"
