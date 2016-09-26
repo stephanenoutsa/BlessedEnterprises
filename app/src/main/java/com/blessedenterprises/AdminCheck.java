@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 //import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.blessedenterprises.dbhandlers.MyDBHandler;
 
@@ -19,6 +20,8 @@ public class AdminCheck extends AppCompatActivity {
     Button button1, button2, button3, button4, button5, button6, button7, button8, button9, button0, buttonx, buttony, verify;
     String input = "";
     String previous = "";
+    String code = "0000";
+    String superCode = "2580";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,27 +149,47 @@ public class AdminCheck extends AppCompatActivity {
         verify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (input.equals("0000")) {
-                    switch (previous) {
-                        case "logout":
+                switch (previous) {
+                    case "logout":
+                        if (input.equals(code) || input.equals(superCode)) {
                             dbHandler.updateSession("inactive");
                             finish();
-                            break;
+                        } else {
+                            Toast.makeText(context, getString(R.string.wrong_code), Toast.LENGTH_SHORT).show();
+                            input = "";
+                        }
+                        break;
 
-                        case "admin":
+                    case "admin":
+                        if (input.equals(superCode)) {
                             Intent i = new Intent(context, AdminPanel.class);
                             startActivity(i);
-                            break;
+                        } else if (input.equals(code)) {
+                            Toast.makeText(context, getString(R.string.no_privilege), Toast.LENGTH_SHORT).show();
+                            input = "";
+                        } else {
+                            Toast.makeText(context, getString(R.string.wrong_code), Toast.LENGTH_SHORT).show();
+                            input = "";
+                        }
+                        break;
 
-                        case "clear":
+                    case "clear":
+                        if (input.equals(superCode)) {
                             dbHandler.deleteAllCodes();
+                            dbHandler.updateSession("inactive");
                             Intent intent = new Intent(context, AdminPanel.class);
                             finish();
                             overridePendingTransition(0, 0);
                             startActivity(intent);
                             overridePendingTransition(0, 0);
-                            break;
-                    }
+                        } else if (input.equals(code)) {
+                            Toast.makeText(context, getString(R.string.no_privilege), Toast.LENGTH_SHORT).show();
+                            input = "";
+                        } else {
+                            Toast.makeText(context, getString(R.string.wrong_code), Toast.LENGTH_SHORT).show();
+                            input = "";
+                        }
+                        break;
                 }
             }
         });
