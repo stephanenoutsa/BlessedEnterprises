@@ -23,6 +23,7 @@ import com.blessedenterprises.dbhandlers.MyDBHandler;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class LockScreen extends AppCompatActivity {
 
@@ -202,7 +203,7 @@ public class LockScreen extends AppCompatActivity {
                     status = dbHandler.getSession();
                     if (status.equals("inactive")) {
                         date = new Date();
-                        DateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a");
+                        DateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a", Locale.ENGLISH);
                         time = df.format(date.getTime());
                         dbHandler.updateSession("active");
                         dbHandler.addCode(result, time);
