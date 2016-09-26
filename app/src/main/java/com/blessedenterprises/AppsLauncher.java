@@ -59,6 +59,9 @@ public class AppsLauncher extends AppCompatActivity {
         List<ResolveInfo> availableActivities = packageManager.queryIntentActivities(i, 0);
 
         for (ResolveInfo ri : availableActivities) {
+            if (ri.loadLabel(packageManager).equals(getString(R.string.app_name))) {
+                continue;
+            }
             AppDetails app = new AppDetails();
             app.label = ri.loadLabel(packageManager);
             app.name = ri.activityInfo.packageName;
