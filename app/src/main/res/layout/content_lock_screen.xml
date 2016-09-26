@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:background="@drawable/lockscreen_background"
+    android:background="@drawable/blessed_enterprise"
     tools:context="com.blessedenterprises.LockScreen"
     tools:showIn="@layout/activity_lock_screen">
 
@@ -251,7 +251,7 @@
             android:layout_toLeftOf="@+id/adminPanel"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/logout_text"
-            android:textColor="@android:color/white"
+            android:textColor="@color/colorAccent"
             android:id="@+id/reset" />
 
         <TextView
@@ -262,16 +262,17 @@
             android:gravity="end"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/admin_panel"
-            android:textColor="@android:color/white"
+            android:textColor="@color/colorAccent"
             android:id="@+id/adminPanel" />
     </RelativeLayout>
 
     <TextView
         android:id="@+id/statusIndicator"
         android:text="@string/status_indicator"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:layout_below="@+id/row5"
         android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
