@@ -23,6 +23,7 @@
     <string name="title_activity_admin_check">Admin Check</string>
     <string name="enter_admin_pin">Enter admin PIN</string>
     <string name="verify_pin">Verify</string>
+    <string name="no_privilege">You don\'t have the required privileges!</string>
     <!-- End of AdminCheck activity literature -->
 
     <!-- Start of AdminPanel activity literature -->
