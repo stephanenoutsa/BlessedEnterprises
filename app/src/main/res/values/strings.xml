@@ -11,7 +11,7 @@
     <string name="logout_yes">Yes</string>
     <string name="logout_no">No</string>
     <string name="admin_panel"><u>Admin Panel</u></string>
-    <string name="status_indicator">Status:</string>
+    <string name="status_indicator">Status:&#160;</string>
     <!-- End of LockScreen activity literature -->
 
     <!-- Start of AppsLauncher activity literature -->
@@ -28,7 +28,7 @@
 
     <!-- Start of AdminPanel activity literature -->
     <string name="title_activity_admin_panel">Admin Panel</string>
-    <string name="count_indicator">Total count:</string>
+    <string name="count_indicator">Total count:&#160;</string>
     <string name="clear_log"><u>Clear log</u></string>
     <string name="clear_log_warning">Are you sure you want to clear the log?</string>
     <!-- End of AdminPanel activity literature -->

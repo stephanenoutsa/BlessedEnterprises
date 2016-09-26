@@ -69,8 +69,7 @@ public class AdminPanel extends AppCompatActivity {
 
         countLog = (TextView) findViewById(R.id.countLog);
         String size = String.valueOf(list.size());
-        countLog.setText(" ");
-        countLog.append(size);
+        countLog.setText(size);
 
         clearLog = (TextView) findViewById(R.id.clearLog);
         clearLog.setOnClickListener(new View.OnClickListener() {

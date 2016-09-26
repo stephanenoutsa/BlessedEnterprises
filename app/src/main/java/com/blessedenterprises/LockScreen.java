@@ -262,8 +262,7 @@ public class LockScreen extends AppCompatActivity {
     }
 
     public void setStatus() {
-        sessionStatus.setText(" ");
-        sessionStatus.append(dbHandler.getSession());
+        sessionStatus.setText(dbHandler.getSession());
         switch (dbHandler.getSession()) {
             case "active":
                 sessionStatus.setTextColor(ContextCompat.getColor(this, R.color.colorActive));
