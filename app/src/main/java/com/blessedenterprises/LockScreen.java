@@ -285,6 +285,8 @@ public class LockScreen extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setStatus();
+        input = "";
+        code.setText(input);
     }
 
     @Override
