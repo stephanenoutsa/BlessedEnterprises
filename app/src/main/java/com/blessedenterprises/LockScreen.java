@@ -1,5 +1,6 @@
 package com.blessedenterprises;
 
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -270,6 +271,13 @@ public class LockScreen extends AppCompatActivity {
             case "inactive":
                 sessionStatus.setTextColor(ContextCompat.getColor(this, R.color.colorInactive));
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        activityManager.moveTaskToFront(getTaskId(), 0);
     }
 
     @Override
