@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.blessedenterprises.adapters.LogAdapter;
 import com.blessedenterprises.dbhandlers.MyDBHandler;
-import com.blessedenterprises.models.Code;
+import com.blessedenterprises.models.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,7 +25,7 @@ import java.util.List;
 public class AdminPanel extends AppCompatActivity {
     Context context = this;
     MyDBHandler dbHandler;
-    List<Code> codes;
+    List<User> users;
     List<String[]> list;
     ListView listView;
     ListAdapter listAdapter;
@@ -49,17 +49,20 @@ public class AdminPanel extends AppCompatActivity {
         });*/
 
         dbHandler = new MyDBHandler(this, null, null, 1);
-        codes = new ArrayList<>();
-        codes = dbHandler.getAllCodes();
-        codes.remove(0);
-        Collections.reverse(codes);
+        users = new ArrayList<>();
+        users = dbHandler.getAllUsers();
+        users.remove(0);
+        Collections.reverse(users);
         list = new ArrayList<>();
 
-        for(int i = 0; i < codes.size(); i++) {
-            String date = codes.get(i).getDate();
+        for(int i = 0; i < users.size(); i++) {
+            String name = users.get(i).getName();
+            String date = users.get(i).getDate();
+            String login = users.get(i).getLoginTime();
+            String logout = users.get(i).getLogoutTime();
             int sn = i + 1;
             String snStr = String.valueOf(sn);
-            String[] code = {snStr, date};
+            String[] code = {snStr, date, login, logout};
             list.add(code);
         }
 

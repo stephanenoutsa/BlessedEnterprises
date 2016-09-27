@@ -30,12 +30,14 @@ public class LockScreen extends AppCompatActivity {
     MyDBHandler dbHandler;
     Context context = this;
     Date date;
-    TextView code, logout, adminPanel, statusIndicator, sessionStatus;
+    TextView user, logout, adminPanel, statusIndicator, sessionStatus;
     Button button1, button2, button3, button4, button5, button6, button7, button8, button9, button0, buttonx, buttony, unlock;
     String status = "";
     String input = "";
     String result = "";
     String time = "";
+    String loginTime = "";
+    String logoutTime = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +58,7 @@ public class LockScreen extends AppCompatActivity {
 
         dbHandler = new MyDBHandler(this, null, null, 1);
 
-        code = (TextView) findViewById(R.id.code);
+        user = (TextView) findViewById(R.id.user);
         logout = (TextView) findViewById(R.id.reset);
         adminPanel = (TextView) findViewById(R.id.adminPanel);
         statusIndicator = (TextView) findViewById(R.id.statusIndicator);
@@ -81,7 +83,7 @@ public class LockScreen extends AppCompatActivity {
             public void onClick(View v) {
                 if (input.length() < 4) {
                     input += "0";
-                    code.setText(input);
+                    user.setText(input);
                 }
             }
         });
@@ -91,7 +93,7 @@ public class LockScreen extends AppCompatActivity {
             public void onClick(View v) {
                 if (input.length() < 4) {
                     input += "1";
-                    code.setText(input);
+                    user.setText(input);
                 }
             }
         });
@@ -101,7 +103,7 @@ public class LockScreen extends AppCompatActivity {
             public void onClick(View v) {
                 if (input.length() < 4) {
                     input += "2";
-                    code.setText(input);
+                    user.setText(input);
                 }
             }
         });
@@ -111,7 +113,7 @@ public class LockScreen extends AppCompatActivity {
             public void onClick(View v) {
                 if (input.length() < 4) {
                     input += "3";
-                    code.setText(input);
+                    user.setText(input);
                 }
             }
         });
@@ -121,7 +123,7 @@ public class LockScreen extends AppCompatActivity {
             public void onClick(View v) {
                 if (input.length() < 4) {
                     input += "4";
-                    code.setText(input);
+                    user.setText(input);
                 }
             }
         });
@@ -131,7 +133,7 @@ public class LockScreen extends AppCompatActivity {
             public void onClick(View v) {
                 if (input.length() < 4) {
                     input += "5";
-                    code.setText(input);
+                    user.setText(input);
                 }
             }
         });
@@ -141,7 +143,7 @@ public class LockScreen extends AppCompatActivity {
             public void onClick(View v) {
                 if (input.length() < 4) {
                     input += "6";
-                    code.setText(input);
+                    user.setText(input);
                 }
             }
         });
@@ -151,7 +153,7 @@ public class LockScreen extends AppCompatActivity {
             public void onClick(View v) {
                 if (input.length() < 4) {
                     input += "7";
-                    code.setText(input);
+                    user.setText(input);
                 }
             }
         });
@@ -161,7 +163,7 @@ public class LockScreen extends AppCompatActivity {
             public void onClick(View v) {
                 if (input.length() < 4) {
                     input += "8";
-                    code.setText(input);
+                    user.setText(input);
                 }
             }
         });
@@ -171,7 +173,7 @@ public class LockScreen extends AppCompatActivity {
             public void onClick(View v) {
                 if (input.length() < 4) {
                     input += "9";
-                    code.setText(input);
+                    user.setText(input);
                 }
             }
         });
@@ -180,17 +182,17 @@ public class LockScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 input = "";
-                code.setText(input);
+                user.setText(input);
             }
         });
 
         buttony.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String codeStr = code.getText().toString();
+                String codeStr = user.getText().toString();
                 if (!codeStr.equals("")) {
                     input = codeStr.substring(0, codeStr.length() - 1);
-                    code.setText(input);
+                    user.setText(input);
                 }
             }
         });
@@ -198,15 +200,17 @@ public class LockScreen extends AppCompatActivity {
         unlock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                result = code.getText().toString();
+                result = user.getText().toString();
                 if (result.equals("1234")) {
                     status = dbHandler.getSession();
                     if (status.equals("inactive")) {
                         date = new Date();
-                        DateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a", Locale.ENGLISH);
+                        DateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+                        DateFormat df1 = new SimpleDateFormat("hh:mm:ss a", Locale.ENGLISH);
                         time = df.format(date.getTime());
+                        loginTime = df1.format(date.getTime());
                         dbHandler.updateSession("active");
-                        dbHandler.addCode(result, time);
+                        dbHandler.addUser(result, time, loginTime, "Still active");
                         int count = dbHandler.getCount();
                         int newCount = count + 1;
                         dbHandler.updateCount(newCount);
@@ -237,6 +241,8 @@ public class LockScreen extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         Intent i = new Intent(context, AdminCheck.class);
                                         i.putExtra("previous", "logout");
+                                        i.putExtra("date", time);
+                                        i.putExtra("login_time", loginTime);
                                         startActivity(i);
                                     }
                                 }).
@@ -286,7 +292,7 @@ public class LockScreen extends AppCompatActivity {
         super.onResume();
         setStatus();
         input = "";
-        code.setText(input);
+        user.setText(input);
     }
 
     @Override

@@ -13,6 +13,11 @@ import android.widget.Toast;
 
 import com.blessedenterprises.dbhandlers.MyDBHandler;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class AdminCheck extends AppCompatActivity {
 
     MyDBHandler dbHandler;
@@ -152,6 +157,12 @@ public class AdminCheck extends AppCompatActivity {
                 switch (previous) {
                     case "logout":
                         if (input.equals(code) || input.equals(superCode)) {
+                            Date date = new Date();
+                            DateFormat df = new SimpleDateFormat("hh:mm:ss a", Locale.ENGLISH);
+                            String logoutTime = df.format(date.getTime());
+                            String time = getIntent().getExtras().getString("date");
+                            String loginTime = getIntent().getExtras().getString("login_time");
+                            dbHandler.updateUser(time, loginTime, logoutTime);
                             dbHandler.updateSession("inactive");
                             finish();
                         } else {
@@ -175,7 +186,7 @@ public class AdminCheck extends AppCompatActivity {
 
                     case "clear":
                         if (input.equals(superCode)) {
-                            dbHandler.deleteAllCodes();
+                            dbHandler.deleteAllUsers();
                             dbHandler.updateSession("inactive");
                             Intent intent = new Intent(context, AdminPanel.class);
                             finish();

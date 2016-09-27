@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.blessedenterprises.models.Code;
+import com.blessedenterprises.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +23,12 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public static final String TABLE_SESSION = "session";
     public static final String SESSION_COLUMN_ID = "_sid";
     public static final String SESSION_COLUMN_STATUS = "status";
-    public static final String TABLE_CODES = "codes";
-    public static final String CODES_COLUMN_ID = "_cid";
-    public static final String CODES_COLUMN_CODE = "code";
-    public static final String CODES_COLUMN_DATE = "date";
+    public static final String TABLE_USERS = "users";
+    public static final String USERS_COLUMN_ID = "_uid";
+    public static final String USERS_COLUMN_NAME = "name";
+    public static final String USERS_COLUMN_DATE = "date";
+    public static final String USERS_COLUMN_LOGIN = "login";
+    public static final String USERS_COLUMN_LOGOUT = "logout";
     public static final String TABLE_COUNT = "count";
     public static final String COUNT_COLUMN_ID = "_id";
     public static final String COUNT_COLUMN_LOG = "log";
@@ -48,15 +50,17 @@ public class MyDBHandler extends SQLiteOpenHelper {
         // Add placeholder values for Session table
         addSession("inactive");
 
-        String codes = "CREATE TABLE " + TABLE_CODES + "(" +
-                CODES_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT " + ", " +
-                CODES_COLUMN_CODE + " TEXT " + ", " +
-                CODES_COLUMN_DATE + " TEXT " +
+        String users = "CREATE TABLE " + TABLE_USERS + "(" +
+                USERS_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT " + ", " +
+                USERS_COLUMN_NAME + " TEXT " + ", " +
+                USERS_COLUMN_DATE + " TEXT " + ", " +
+                USERS_COLUMN_LOGIN + " TEXT " + ", " +
+                USERS_COLUMN_LOGOUT + " TEXT " +
                 ")";
-        db.execSQL(codes);
+        db.execSQL(users);
 
         // Add placeholder values for Codes table
-        addCode("null", "null");
+        addUser("null", "null", "null", "null");
 
         String count = "CREATE TABLE " + TABLE_COUNT + "(" +
                 COUNT_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT " + ", " +
@@ -74,7 +78,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SESSION + ";");
         onCreate(db);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CODES + ";");
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS + ";");
         onCreate(db);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_COUNT + ";");
         onCreate(db);
@@ -119,20 +123,22 @@ public class MyDBHandler extends SQLiteOpenHelper {
         }
     }
 
-    // Add a code in Codes table
-    public void addCode(String code, String date) {
+    // Add a user in Users table
+    public void addUser(String name, String date, String login, String logout) {
         ContentValues values = new ContentValues();
-        values.put(CODES_COLUMN_CODE, code);
-        values.put(CODES_COLUMN_DATE, date);
+        values.put(USERS_COLUMN_NAME, name);
+        values.put(USERS_COLUMN_DATE, date);
+        values.put(USERS_COLUMN_LOGIN, login);
+        values.put(USERS_COLUMN_LOGOUT, logout);
         if (db == null) {
             db = getWritableDatabase();
         }
-        db.insert(TABLE_CODES, null, values);
+        db.insert(TABLE_USERS, null, values);
     }
 
-    // Check code in Codes table
-    public boolean checkCode(String code) {
-        String query = "SELECT * FROM " + TABLE_CODES + " WHERE " + CODES_COLUMN_CODE + "=\'" + code + "\';";
+    // Check user in Users table
+    public boolean checkUser(String name) {
+        String query = "SELECT * FROM " + TABLE_USERS + " WHERE " + USERS_COLUMN_NAME + "=\'" + name + "\';";
         if (db == null) {
             db = getReadableDatabase();
         }
@@ -145,11 +151,11 @@ public class MyDBHandler extends SQLiteOpenHelper {
         }
     }
 
-    // Get all codes from Codes table
-    public List<Code> getAllCodes() {
-        List<Code> codes = new ArrayList<>();
+    // Get all users from Users table
+    public List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
 
-        String query = "SELECT * FROM " + TABLE_CODES + ";";
+        String query = "SELECT * FROM " + TABLE_USERS + ";";
 
         if (db == null) {
             db = getReadableDatabase();
@@ -161,26 +167,42 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         // Loop through all rows and add each to list
         while (!c.isAfterLast()) {
-            Code code = new Code();
-            code.set_cid(Integer.parseInt(c.getString(0)));
-            code.setCode(c.getString(1));
-            code.setDate(c.getString(2));
+            User user = new User();
+            user.set_uid(Integer.parseInt(c.getString(0)));
+            user.setName(c.getString(1));
+            user.setDate(c.getString(2));
+            user.setLoginTime(c.getString(3));
+            user.setLogoutTime(c.getString(4));
 
-            codes.add(code);
+            users.add(user);
 
             c.moveToNext();
         }
 
         try {
-            return codes;
+            return users;
         } finally {
             c.close();
         }
     }
 
-    // Delete a particular code from Codes table
-    public void deleteCode(int id) {
-        String query = "DELETE FROM " + TABLE_CODES + " WHERE " + CODES_COLUMN_ID + " = " + id + ";";
+    // Update a user in the Users table
+    public void updateUser(String date, String login, String logout) {
+        ContentValues values = new ContentValues();
+        values.put(USERS_COLUMN_LOGOUT, logout);
+        if (db == null) {
+            db = getWritableDatabase();
+        }
+        db.update(
+                TABLE_USERS,
+                values,
+                USERS_COLUMN_DATE + " =? AND " + USERS_COLUMN_LOGIN + " =?",
+                new String[] {"\'" + date + "\'", "\'" + login + "\'"});
+    }
+
+    // Delete a particular user from Users table
+    public void deleteUser(int id) {
+        String query = "DELETE FROM " + TABLE_USERS + " WHERE " + USERS_COLUMN_ID + " = " + id + ";";
         if (db == null)
             db = getWritableDatabase();
         try {
@@ -190,16 +212,16 @@ public class MyDBHandler extends SQLiteOpenHelper {
         }
     }
 
-    // Delete all codes from Code table
-    public void deleteAllCodes() {
-        String query = "DELETE FROM " + TABLE_CODES + ";";
+    // Delete all users from Users table
+    public void deleteAllUsers() {
+        String query = "DELETE FROM " + TABLE_USERS + ";";
         if (db == null)
             db = getWritableDatabase();
         try {
             db.execSQL(query);
 
             // Add placeholder values for Codes table
-            addCode("null", "null");
+            addUser("null", "null", "null", "null");
         } catch (Exception e) {
             e.printStackTrace();
         }
