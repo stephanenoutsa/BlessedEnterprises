@@ -160,9 +160,7 @@ public class AdminCheck extends AppCompatActivity {
                             Date date = new Date();
                             DateFormat df = new SimpleDateFormat("hh:mm:ss a", Locale.ENGLISH);
                             String logoutTime = df.format(date.getTime());
-                            String time = getIntent().getExtras().getString("date");
-                            String loginTime = getIntent().getExtras().getString("login_time");
-                            dbHandler.updateUser(time, loginTime, logoutTime);
+                            dbHandler.updateUser(logoutTime);
                             dbHandler.updateSession("inactive");
                             finish();
                         } else {

@@ -30,13 +30,25 @@ public class LogAdapter extends ArrayAdapter<String[]> {
 
         String[] log = getItem(position);
         String sn = log[0];
-        String date = log[1];
+        String name = log[1];
+        String date = log[2];
+        String login = log[3];
+        String logout = log[4];
 
         TextView numRow = (TextView) customView.findViewById(R.id.numRow);
         numRow.setText(sn);
 
+        TextView nameRow = (TextView) customView.findViewById(R.id.nameRow);
+        nameRow.setText(name);
+
         TextView dateRow = (TextView) customView.findViewById(R.id.dateRow);
         dateRow.setText(date);
+
+        TextView loginRow = (TextView) customView.findViewById(R.id.loginRow);
+        loginRow.setText(login);
+
+        TextView logoutRow = (TextView) customView.findViewById(R.id.logoutRow);
+        logoutRow.setText(logout);
 
         return customView;
     }

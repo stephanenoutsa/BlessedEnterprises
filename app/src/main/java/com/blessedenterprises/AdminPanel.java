@@ -61,8 +61,8 @@ public class AdminPanel extends AppCompatActivity {
             String login = users.get(i).getLoginTime();
             String logout = users.get(i).getLogoutTime();
             int sn = i + 1;
-            String snStr = String.valueOf(sn);
-            String[] code = {snStr, date, login, logout};
+            String snStr = String.valueOf(sn) + ")";
+            String[] code = {snStr, name, date, login, logout};
             list.add(code);
         }
 

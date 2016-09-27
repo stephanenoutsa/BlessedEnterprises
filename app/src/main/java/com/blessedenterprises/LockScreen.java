@@ -37,7 +37,6 @@ public class LockScreen extends AppCompatActivity {
     String result = "";
     String time = "";
     String loginTime = "";
-    String logoutTime = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -241,8 +240,6 @@ public class LockScreen extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         Intent i = new Intent(context, AdminCheck.class);
                                         i.putExtra("previous", "logout");
-                                        i.putExtra("date", time);
-                                        i.putExtra("login_time", loginTime);
                                         startActivity(i);
                                     }
                                 }).

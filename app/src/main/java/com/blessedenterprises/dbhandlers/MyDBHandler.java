@@ -151,6 +151,28 @@ public class MyDBHandler extends SQLiteOpenHelper {
         }
     }
 
+    // Get last user from Users table
+    public User getUser() {
+        String query = "SELECT * FROM " + TABLE_USERS + ";";
+        if (db == null) {
+            db = getReadableDatabase();
+        }
+        Cursor c = db.rawQuery(query, null);
+
+        if (c != null)
+            c.moveToLast();
+
+        User user = new User();
+        user.set_uid(Integer.parseInt(c.getString(0)));
+        user.setName(c.getString(1));
+        user.setDate(c.getString(2));
+        user.setLoginTime(c.getString(3));
+        user.setLogoutTime(c.getString(4));
+
+        c.close();
+        return user;
+    }
+
     // Get all users from Users table
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
@@ -187,17 +209,15 @@ public class MyDBHandler extends SQLiteOpenHelper {
     }
 
     // Update a user in the Users table
-    public void updateUser(String date, String login, String logout) {
+    public void updateUser(String logout) {
+        User user = getUser();
+        int id = user.get_uid();
         ContentValues values = new ContentValues();
         values.put(USERS_COLUMN_LOGOUT, logout);
         if (db == null) {
             db = getWritableDatabase();
         }
-        db.update(
-                TABLE_USERS,
-                values,
-                USERS_COLUMN_DATE + " =? AND " + USERS_COLUMN_LOGIN + " =?",
-                new String[] {"\'" + date + "\'", "\'" + login + "\'"});
+        db.update(TABLE_USERS, values, USERS_COLUMN_ID + "=" + id, null);
     }
 
     // Delete a particular user from Users table
