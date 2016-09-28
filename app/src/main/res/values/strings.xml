@@ -28,6 +28,11 @@
 
     <!-- Start of AdminPanel activity literature -->
     <string name="title_activity_admin_panel">Admin Panel</string>
+    <string name="name_label"><b>Name:&#160;</b></string>
+    <string name="date_label"><b>Date:&#160;</b></string>
+    <string name="login_label"><b>Login:&#160;</b></string>
+    <string name="logout_label"><b>Logout:&#160;</b></string>
+    <string name="session_label"><b>Session:&#160;</b></string>
     <string name="count_indicator">Total count:&#160;</string>
     <string name="clear_log"><u>Clear log</u></string>
     <string name="clear_log_warning">Are you sure you want to clear the log?</string>

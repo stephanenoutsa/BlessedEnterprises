@@ -6,10 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blessedenterprises.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by stephnoutsa on 9/16/16.
@@ -35,6 +39,10 @@ public class LogAdapter extends ArrayAdapter<String[]> {
         String login = log[3];
         String logout = log[4];
 
+        Date loginTime, logoutTime;
+        SimpleDateFormat df = new SimpleDateFormat("hh:mm:ss a", Locale.ENGLISH);
+        long diff = 0;
+
         TextView numRow = (TextView) customView.findViewById(R.id.numRow);
         numRow.setText(sn);
 
@@ -49,6 +57,72 @@ public class LogAdapter extends ArrayAdapter<String[]> {
 
         TextView logoutRow = (TextView) customView.findViewById(R.id.logoutRow);
         logoutRow.setText(logout);
+
+        TextView sessionRow = (TextView) customView.findViewById(R.id.sessionRow);
+
+        if (logout.equals("Still active")) {
+            try {
+                Date now = new Date();
+                String nowTime = df.format(now);
+                Date time = df.parse(nowTime);
+                loginTime = df.parse(login);
+                long diffInMs = time.getTime() - loginTime.getTime();
+                long diffMin = diffInMs / (1000 * 60);
+                long diffHr = diffMin / 60;
+
+                if (diffMin < 1) {
+                    sessionRow.setText("Less than a minute");
+                } else if (diffMin >= 1 && diffHr < 1) {
+                    if (diffMin < 2) {
+                        sessionRow.setText(String.valueOf(diffMin));
+                        sessionRow.append(" min");
+                    } else {
+                        sessionRow.setText(String.valueOf(diffMin));
+                        sessionRow.append(" mins");
+                    }
+                } else if (diffHr >= 1) {
+                    if (diffHr < 2) {
+                        sessionRow.setText(String.valueOf(diffHr));
+                        sessionRow.append(" hr");
+                    } else {
+                        sessionRow.setText(String.valueOf(diffHr));
+                        sessionRow.append(" hrs");
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                loginTime = df.parse(login);
+                logoutTime = df.parse(logout);
+                long diffInMs = logoutTime.getTime() - loginTime.getTime();
+                long diffMin = diffInMs / (1000 * 60);
+                long diffHr = diffMin / 60;
+
+                if (diffMin < 1) {
+                    sessionRow.setText("Less than a minute");
+                } else if (diffMin >= 1 && diffHr < 1) {
+                    if (diffMin < 2) {
+                        sessionRow.setText(String.valueOf(diffMin));
+                        sessionRow.append(" min");
+                    } else {
+                        sessionRow.setText(String.valueOf(diffMin));
+                        sessionRow.append(" mins");
+                    }
+                } else if (diffHr >= 1) {
+                    if (diffHr < 2) {
+                        sessionRow.setText(String.valueOf(diffHr));
+                        sessionRow.append(" hr");
+                    } else {
+                        sessionRow.setText(String.valueOf(diffHr));
+                        sessionRow.append(" hrs");
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         return customView;
     }
