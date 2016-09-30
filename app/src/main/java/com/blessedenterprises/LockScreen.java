@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 //import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 //import android.view.Menu;
@@ -24,14 +25,17 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LockScreen extends AppCompatActivity {
 
     MyDBHandler dbHandler;
     Context context = this;
     Date date;
-    TextView user, logout, adminPanel, statusIndicator, sessionStatus;
-    Button button1, button2, button3, button4, button5, button6, button7, button8, button9, button0, buttonx, buttony, unlock;
+    TextView logout, adminPanel, statusIndicator, sessionStatus;
+    EditText userName;
+    Button unlock;
     String status = "";
     String input = "";
     String result = "";
@@ -57,152 +61,23 @@ public class LockScreen extends AppCompatActivity {
 
         dbHandler = new MyDBHandler(this, null, null, 1);
 
-        user = (TextView) findViewById(R.id.user);
+        userName = (EditText) findViewById(R.id.userName);
         logout = (TextView) findViewById(R.id.reset);
         adminPanel = (TextView) findViewById(R.id.adminPanel);
         statusIndicator = (TextView) findViewById(R.id.statusIndicator);
         sessionStatus = (TextView) findViewById(R.id.sessionStatus);
 
-        button0 = (Button) findViewById(R.id.button0);
-        button1 = (Button) findViewById(R.id.button1);
-        button2 = (Button) findViewById(R.id.button2);
-        button3 = (Button) findViewById(R.id.button3);
-        button4 = (Button) findViewById(R.id.button4);
-        button5 = (Button) findViewById(R.id.button5);
-        button6 = (Button) findViewById(R.id.button6);
-        button7 = (Button) findViewById(R.id.button7);
-        button8 = (Button) findViewById(R.id.button8);
-        button9 = (Button) findViewById(R.id.button9);
-        buttonx = (Button) findViewById(R.id.buttonx);
-        buttony = (Button) findViewById(R.id.buttony);
         unlock = (Button) findViewById(R.id.unlock);
-
-        button0.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (input.length() < 4) {
-                    input += "0";
-                    user.setText(input);
-                }
-            }
-        });
-
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (input.length() < 4) {
-                    input += "1";
-                    user.setText(input);
-                }
-            }
-        });
-
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (input.length() < 4) {
-                    input += "2";
-                    user.setText(input);
-                }
-            }
-        });
-
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (input.length() < 4) {
-                    input += "3";
-                    user.setText(input);
-                }
-            }
-        });
-
-        button4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (input.length() < 4) {
-                    input += "4";
-                    user.setText(input);
-                }
-            }
-        });
-
-        button5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (input.length() < 4) {
-                    input += "5";
-                    user.setText(input);
-                }
-            }
-        });
-
-        button6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (input.length() < 4) {
-                    input += "6";
-                    user.setText(input);
-                }
-            }
-        });
-
-        button7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (input.length() < 4) {
-                    input += "7";
-                    user.setText(input);
-                }
-            }
-        });
-
-        button8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (input.length() < 4) {
-                    input += "8";
-                    user.setText(input);
-                }
-            }
-        });
-
-        button9.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (input.length() < 4) {
-                    input += "9";
-                    user.setText(input);
-                }
-            }
-        });
-
-        buttonx.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                input = "";
-                user.setText(input);
-            }
-        });
-
-        buttony.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String codeStr = user.getText().toString();
-                if (!codeStr.equals("")) {
-                    input = codeStr.substring(0, codeStr.length() - 1);
-                    user.setText(input);
-                }
-            }
-        });
 
         unlock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                result = user.getText().toString();
-                if (result.equals("1234")) {
-                    status = dbHandler.getSession();
-                    if (status.equals("inactive")) {
+                if (dbHandler.getSession().equals("active")) {
+                    Intent i = new Intent(context, AppsLauncher.class);
+                    startActivity(i);
+                } else {
+                    result = capitalize(userName.getText().toString().trim());
+                    if (validate(result)) {
                         date = new Date();
                         DateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
                         DateFormat df1 = new SimpleDateFormat("hh:mm:ss a", Locale.ENGLISH);
@@ -213,11 +88,9 @@ public class LockScreen extends AppCompatActivity {
                         int count = dbHandler.getCount();
                         int newCount = count + 1;
                         dbHandler.updateCount(newCount);
+                        Intent i = new Intent(context, AppsLauncher.class);
+                        startActivity(i);
                     }
-                    Intent i = new Intent(context, AppsLauncher.class);
-                    startActivity(i);
-                } else {
-                    Toast.makeText(context, getString(R.string.wrong_code), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -277,6 +150,53 @@ public class LockScreen extends AppCompatActivity {
         }
     }
 
+    public String capitalize(String name) {
+        String[] words = name.split(" ");
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = 0; i < words.length; i++) {
+            stringBuilder.append(Character.toUpperCase(words[i].charAt(0)));
+            stringBuilder.append(words[i].substring(1));
+            if (i < words.length) {
+                stringBuilder.append(" ");
+            }
+        }
+
+        return stringBuilder.toString().trim();
+    }
+
+    public boolean validate(String name) {
+        boolean check = true;
+
+        String[] words = name.split(" ");
+        int num = words.length;
+
+        if (num < 2) {
+            userName.setError(getString(R.string.short_name));
+            check = false;
+        }
+
+        if (num > 3) {
+            userName.setError(getString(R.string.long_name));
+            check = false;
+        }
+
+        for (String word : words) {
+            Pattern pattern = Pattern.compile("[a-zA-Z]+");
+            Matcher matcher = pattern.matcher(word);
+            if (!matcher.matches()) {
+                check = false;
+                userName.setError(getString(R.string.invalid_name));
+            }
+            if (word.length() < 2) {
+                check = false;
+                userName.setError(getString(R.string.invalid_name));
+            }
+        }
+
+        return check;
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -289,7 +209,7 @@ public class LockScreen extends AppCompatActivity {
         super.onResume();
         setStatus();
         input = "";
-        user.setText(input);
+        userName.setText(input);
     }
 
     @Override

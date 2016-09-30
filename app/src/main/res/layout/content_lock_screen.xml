@@ -13,232 +13,10 @@
     tools:context="com.blessedenterprises.LockScreen"
     tools:showIn="@layout/activity_lock_screen">
 
-    <TextView
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/enter_code"
-        android:textColor="@android:color/white"
-        android:background="@color/colorPrimaryDark"
-        android:id="@+id/enterCode"
-        android:gravity="center"
-        android:padding="5dp"
-        android:layout_marginBottom="10dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
     <RelativeLayout
-        android:id="@+id/displayedCode"
-        android:background="@drawable/rectangular_shape"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="5dp"
-        android:layout_below="@+id/enterCode"
-        android:layout_width="200dp"
-        android:layout_height="40dp">
-
-        <TextView
-            android:id="@+id/code"
-            android:gravity="center"
-            android:textColor="@android:color/white"
-            android:layout_centerHorizontal="true"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-
-    </RelativeLayout>
-
-    <LinearLayout
         android:id="@+id/row1"
-        android:gravity="center"
         android:layout_margin="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/displayedCode"
-        android:orientation="horizontal">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1"
-            android:textColor="@android:color/white"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_margin="5dp"
-            style="?android:attr/buttonBarButtonStyle"
-            android:background="@drawable/circular_shape"
-            android:id="@+id/button1" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2"
-            android:textColor="@android:color/white"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_margin="5dp"
-            style="?android:attr/buttonBarButtonStyle"
-            android:background="@drawable/circular_shape"
-            android:id="@+id/button2" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="3"
-            android:textColor="@android:color/white"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_margin="5dp"
-            style="?android:attr/buttonBarButtonStyle"
-            android:background="@drawable/circular_shape"
-            android:id="@+id/button3" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/row2"
-        android:gravity="center"
-        android:layout_margin="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/row1"
-        android:orientation="horizontal">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="4"
-            android:textColor="@android:color/white"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_margin="5dp"
-            style="?android:attr/buttonBarButtonStyle"
-            android:background="@drawable/circular_shape"
-            android:id="@+id/button4" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="5"
-            android:textColor="@android:color/white"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_margin="5dp"
-            style="?android:attr/buttonBarButtonStyle"
-            android:background="@drawable/circular_shape"
-            android:id="@+id/button5" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="6"
-            android:textColor="@android:color/white"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_margin="5dp"
-            style="?android:attr/buttonBarButtonStyle"
-            android:background="@drawable/circular_shape"
-            android:id="@+id/button6" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/row3"
-        android:gravity="center"
-        android:layout_margin="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/row2"
-        android:orientation="horizontal">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="7"
-            android:textColor="@android:color/white"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_margin="5dp"
-            style="?android:attr/buttonBarButtonStyle"
-            android:background="@drawable/circular_shape"
-            android:id="@+id/button7" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="8"
-            android:textColor="@android:color/white"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_margin="5dp"
-            style="?android:attr/buttonBarButtonStyle"
-            android:background="@drawable/circular_shape"
-            android:id="@+id/button8" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="9"
-            android:textColor="@android:color/white"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_margin="5dp"
-            style="?android:attr/buttonBarButtonStyle"
-            android:background="@drawable/circular_shape"
-            android:id="@+id/button9" />
-
-        </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/row4"
-        android:gravity="center"
-        android:layout_margin="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/row3"
-        android:orientation="horizontal">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CE"
-            android:textColor="@android:color/white"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_margin="5dp"
-            style="?android:attr/buttonBarButtonStyle"
-            android:background="@drawable/circular_shape"
-            android:id="@+id/buttonx" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textColor="@android:color/white"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_margin="5dp"
-            style="?android:attr/buttonBarButtonStyle"
-            android:background="@drawable/circular_shape"
-            android:id="@+id/button0" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="C"
-            android:textColor="@android:color/white"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_margin="5dp"
-            style="?android:attr/buttonBarButtonStyle"
-            android:background="@drawable/circular_shape"
-            android:id="@+id/buttony" />
-
-
-
-    </LinearLayout>
-
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:text="@string/unlock"
-        android:textColor="@android:color/white"
-        android:layout_margin="5dp"
-        android:layout_below="@+id/row4"
-        android:layout_centerHorizontal="true"
-        android:background="@color/colorAccent"
-        android:id="@+id/unlock" />
-
-    <RelativeLayout
-        android:id="@+id/row5"
-        android:layout_below="@+id/unlock"
-        android:layout_margin="5dp"
+        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -247,8 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:layout_toStartOf="@+id/adminPanel"
-            android:layout_toLeftOf="@+id/adminPanel"
+            android:gravity="start"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/logout_text"
             android:textColor="@color/colorAccent"
@@ -259,6 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_toEndOf="@+id/reset"
+            android:layout_toRightOf="@+id/reset"
             android:gravity="end"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/admin_panel"
@@ -266,22 +45,94 @@
             android:id="@+id/adminPanel" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/statusIndicator"
-        android:text="@string/status_indicator"
-        android:textColor="@android:color/black"
-        android:layout_below="@+id/row5"
-        android:layout_marginLeft="5dp"
-        android:layout_marginStart="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:id="@+id/row2"
+        android:layout_below="@+id/row1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/sessionStatus"
-        android:layout_toRightOf="@+id/statusIndicator"
-        android:layout_toEndOf="@+id/statusIndicator"
-        android:layout_below="@+id/row5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/statusIndicator"
+            android:text="@string/status_indicator"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/sessionStatus"
+            android:layout_toRightOf="@+id/statusIndicator"
+            android:layout_toEndOf="@+id/statusIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/row3"
+        android:layout_below="@+id/row2"
+        android:background="@android:color/transparent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:padding="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/enter_name"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimaryDark"
+            android:id="@+id/enterCode"
+            android:gravity="center"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:padding="5dp"
+            android:id="@+id/userName"
+            android:background="@drawable/rectangular_shape"
+            android:layout_below="@id/enterCode"
+            android:maxLength="52"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:text="@string/unlock"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/userName"
+            android:layout_centerHorizontal="true"
+            android:background="@color/colorAccent"
+            android:id="@+id/unlock" />
+
+        <TextView
+            android:id="@+id/note"
+            android:background="@color/colorPrimary"
+            android:layout_below="@+id/unlock"
+            android:padding="10dp"
+            android:layout_marginTop="100dp"
+            android:text="@string/note_text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

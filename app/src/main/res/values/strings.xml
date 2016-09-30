@@ -2,9 +2,22 @@
     <string name="app_name">Blessed Enterprises</string>
 
     <!-- Start of LockScreen activity literature -->
-    <string name="enter_code">Enter PIN</string>
+    <string name="enter_name">Enter Your Name (at least 2 and at most 3)</string>
     <string name="unlock">Unlock</string>
-    <string name="wrong_code">You entered a wrong PIN. Try again.</string>
+    <string name="note_text" formatted="false">
+        <b><u><i>Note:</i></u></b>\n
+        <i>
+            In order to benefit from our bonuses after using our services a certain number of times,
+            please provide your name in the field above so we can keep track of your rentals.\n
+            You only need to enter this once per session. Afterwards you may just press the "UNLOCK"
+            button. Note that this is only for one session.\n
+            We wish you a safe journey!
+        </i>
+    </string>
+    <string name="wrong_code">You entered a wrong PIN</string>
+    <string name="invalid_name">Invalid name!</string>
+    <string name="short_name">Give at least 2 names!</string>
+    <string name="long_name">Give at most 3 names!</string>
     <string name="logout_text"><u>Logout</u></string>
     <string name="not_logged_in">You are not logged in</string>
     <string name="logout_warning">Are you sure you want to logout?</string>
