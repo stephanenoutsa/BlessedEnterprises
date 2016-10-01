@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by stephnoutsa on 9/16/16.
@@ -67,8 +68,10 @@ public class LogAdapter extends ArrayAdapter<String[]> {
                 Date time = df.parse(nowTime);
                 loginTime = df.parse(login);
                 long diffInMs = time.getTime() - loginTime.getTime();
-                long diffMin = diffInMs / (1000 * 60);
-                long diffHr = diffMin / 60;
+                //long diffMin = diffInMs / (1000 * 60);
+                long diffMin = TimeUnit.MILLISECONDS.toMinutes(diffInMs);
+                //long diffHr = diffMin / 60;
+                long diffHr = TimeUnit.MILLISECONDS.toHours(diffInMs);
 
                 if (diffMin < 1) {
                     sessionRow.setText("Less than a minute");

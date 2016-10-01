@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:spinnerItemStyle">@style/MySpinnerItemStyle</item>
+        <item name="android:spinnerDropDownItemStyle">@style/MySpinnerDropDownItemStyle</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -17,14 +19,12 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    // No animation style
-
+    <!-- No animation style -->
     <style name="noAnimTheme" parent="AppTheme.NoActionBar">
         <item name="android:windowAnimationStyle">@null</item>
     </style>
 
-    // Transparent theme style
-
+    <!-- Transparent theme style -->
     <style name="Theme.Transparent" parent="AppTheme.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -32,6 +32,21 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <!-- Spinner styles -->
+    <style name="MySpinnerItemStyle">
+        <!--<item name="android:textColor">@android:color/black</item>-->
+    </style>
+
+    <style name="MySpinnerDropDownItemStyle">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingLeft">10dp</item>
     </style>
 
 </resources>
