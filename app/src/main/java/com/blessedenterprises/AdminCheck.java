@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.blessedenterprises.dbhandlers.MyDBHandler;
+import com.blessedenterprises.utils.Alarm;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -162,6 +163,11 @@ public class AdminCheck extends AppCompatActivity {
                             String logoutTime = df.format(date.getTime());
                             dbHandler.updateUser(logoutTime);
                             dbHandler.updateSession("inactive");
+
+                            // Stop the ads alarm
+                            Alarm alarm = new Alarm();
+                            alarm.stopAlarm(context);
+
                             finish();
                         } else {
                             Toast.makeText(context, getString(R.string.wrong_code), Toast.LENGTH_SHORT).show();
@@ -184,6 +190,10 @@ public class AdminCheck extends AppCompatActivity {
 
                     case "clear":
                         if (input.equals(superCode)) {
+                            // Stop the ads alarm
+                            Alarm alarm = new Alarm();
+                            alarm.stopAlarm(context);
+
                             dbHandler.deleteAllUsers();
                             dbHandler.updateSession("inactive");
                             Intent intent = new Intent(context, AdminPanel.class);

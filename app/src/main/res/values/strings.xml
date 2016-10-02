@@ -15,6 +15,7 @@
         </i>
     </string>
     <string name="wrong_code">You entered a wrong PIN</string>
+    <string name="no_name">Please provide a name!</string>
     <string name="invalid_name">Invalid name!</string>
     <string name="short_name">Give at least 2 names!</string>
     <string name="long_name">Give at most 3 names!</string>
@@ -63,4 +64,8 @@
     <string name="year_text">Year:&#160;</string>
     <string name="next_text">Next</string>
     <!-- End of DatePicker activity literature -->
+
+    <!-- Start of Adverts activity literature -->
+    <string name="title_activity_adverts">Adverts</string>
+    <!-- End of Adverts activity literature -->
 </resources>

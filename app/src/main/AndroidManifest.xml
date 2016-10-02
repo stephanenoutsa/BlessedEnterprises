@@ -48,6 +48,16 @@
             android:name=".DatePicker"
             android:label="@string/title_activity_date_picker"
             android:theme="@style/Theme.Transparent" />
+
+        <service
+            android:name=".utils.MyService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name=".Adverts"
+            android:label="@string/title_activity_adverts"
+            android:theme="@style/Theme.FullTransparent" />
     </application>
 
 </manifest>

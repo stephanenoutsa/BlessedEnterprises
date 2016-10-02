@@ -20,6 +20,7 @@ import android.widget.Toast;
 //import android.view.MenuItem;
 
 import com.blessedenterprises.dbhandlers.MyDBHandler;
+import com.blessedenterprises.utils.Alarm;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -88,6 +89,11 @@ public class LockScreen extends AppCompatActivity {
                         int count = dbHandler.getCount();
                         int newCount = count + 1;
                         dbHandler.updateCount(newCount);
+
+                        // Start alarm for ads
+                        Alarm alarm = new Alarm();
+                        alarm.startAlarm(context);
+
                         Intent i = new Intent(context, AppsLauncher.class);
                         startActivity(i);
                     }
@@ -151,46 +157,55 @@ public class LockScreen extends AppCompatActivity {
     }
 
     public String capitalize(String name) {
-        String[] words = name.split(" ");
-        StringBuilder stringBuilder = new StringBuilder();
+        if (!name.equals("")) {
+            String[] words = name.split(" ");
+            StringBuilder stringBuilder = new StringBuilder();
 
-        for (int i = 0; i < words.length; i++) {
-            stringBuilder.append(Character.toUpperCase(words[i].charAt(0)));
-            stringBuilder.append(words[i].substring(1));
-            if (i < words.length) {
-                stringBuilder.append(" ");
+            for (int i = 0; i < words.length; i++) {
+                stringBuilder.append(Character.toUpperCase(words[i].charAt(0)));
+                stringBuilder.append(words[i].substring(1));
+                if (i < words.length) {
+                    stringBuilder.append(" ");
+                }
             }
-        }
 
-        return stringBuilder.toString().trim();
+            return stringBuilder.toString().trim();
+        } else {
+            return name;
+        }
     }
 
     public boolean validate(String name) {
         boolean check = true;
 
-        String[] words = name.split(" ");
-        int num = words.length;
-
-        if (num < 2) {
-            userName.setError(getString(R.string.short_name));
+        if (name.equals("")) {
             check = false;
-        }
+            userName.setError(getString(R.string.no_name));
+        } else {
+            String[] words = name.split(" ");
+            int num = words.length;
 
-        if (num > 3) {
-            userName.setError(getString(R.string.long_name));
-            check = false;
-        }
-
-        for (String word : words) {
-            Pattern pattern = Pattern.compile("[a-zA-Z]+");
-            Matcher matcher = pattern.matcher(word);
-            if (!matcher.matches()) {
+            if (num < 2) {
+                userName.setError(getString(R.string.short_name));
                 check = false;
-                userName.setError(getString(R.string.invalid_name));
             }
-            if (word.length() < 2) {
+
+            if (num > 3) {
+                userName.setError(getString(R.string.long_name));
                 check = false;
-                userName.setError(getString(R.string.invalid_name));
+            }
+
+            for (String word : words) {
+                Pattern pattern = Pattern.compile("[a-zA-Z]+");
+                Matcher matcher = pattern.matcher(word);
+                if (!matcher.matches()) {
+                    check = false;
+                    userName.setError(getString(R.string.invalid_name));
+                }
+                if (word.length() < 2) {
+                    check = false;
+                    userName.setError(getString(R.string.invalid_name));
+                }
             }
         }
 
