@@ -159,7 +159,7 @@ public class AdminCheck extends AppCompatActivity {
                     case "logout":
                         if (input.equals(code) || input.equals(superCode)) {
                             Date date = new Date();
-                            DateFormat df = new SimpleDateFormat("hh:mm:ss a", Locale.ENGLISH);
+                            DateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a", Locale.ENGLISH);
                             String logoutTime = df.format(date.getTime());
                             dbHandler.updateUser(logoutTime);
                             dbHandler.updateSession("inactive");

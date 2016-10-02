@@ -37,12 +37,20 @@ public class LogAdapter extends ArrayAdapter<String[]> {
         String sn = log[0];
         String name = log[1];
         String date = log[2];
-        String login = log[3];
-        String logout = log[4];
+        String loginDetails = log[3];
+        String[] loginTimes = loginDetails.split(" ");
+        String login = loginTimes[1] + " " + loginTimes[2];
+        String logoutDetails = log[4];
+        String[] logoutTimes = logoutDetails.split(" ");
+        String logout;
+        if (logoutDetails.equals("Still active")) {
+            logout = logoutDetails;
+        } else {
+            logout = logoutTimes[1] + " " + logoutTimes[2];
+        }
 
         Date loginTime, logoutTime;
-        SimpleDateFormat df = new SimpleDateFormat("hh:mm:ss a", Locale.ENGLISH);
-        long diff = 0;
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a", Locale.ENGLISH);
 
         TextView numRow = (TextView) customView.findViewById(R.id.numRow);
         numRow.setText(sn);
@@ -61,16 +69,14 @@ public class LogAdapter extends ArrayAdapter<String[]> {
 
         TextView sessionRow = (TextView) customView.findViewById(R.id.sessionRow);
 
-        if (logout.equals("Still active")) {
+        if (logoutDetails.equals("Still active")) {
             try {
                 Date now = new Date();
                 String nowTime = df.format(now);
                 Date time = df.parse(nowTime);
-                loginTime = df.parse(login);
+                loginTime = df.parse(loginDetails);
                 long diffInMs = time.getTime() - loginTime.getTime();
-                //long diffMin = diffInMs / (1000 * 60);
                 long diffMin = TimeUnit.MILLISECONDS.toMinutes(diffInMs);
-                //long diffHr = diffMin / 60;
                 long diffHr = TimeUnit.MILLISECONDS.toHours(diffInMs);
 
                 if (diffMin < 1) {
@@ -97,8 +103,8 @@ public class LogAdapter extends ArrayAdapter<String[]> {
             }
         } else {
             try {
-                loginTime = df.parse(login);
-                logoutTime = df.parse(logout);
+                loginTime = df.parse(loginDetails);
+                logoutTime = df.parse(logoutDetails);
                 long diffInMs = logoutTime.getTime() - loginTime.getTime();
                 long diffMin = diffInMs / (1000 * 60);
                 long diffHr = diffMin / 60;

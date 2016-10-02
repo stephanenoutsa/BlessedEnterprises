@@ -81,7 +81,7 @@ public class LockScreen extends AppCompatActivity {
                     if (validate(result)) {
                         date = new Date();
                         DateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
-                        DateFormat df1 = new SimpleDateFormat("hh:mm:ss a", Locale.ENGLISH);
+                        DateFormat df1 = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a", Locale.ENGLISH);
                         time = df.format(date.getTime());
                         loginTime = df1.format(date.getTime());
                         dbHandler.updateSession("active");
