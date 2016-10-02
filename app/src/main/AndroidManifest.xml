@@ -38,6 +38,16 @@
             android:name=".AdminPanel"
             android:label="@string/title_activity_admin_panel"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <receiver
+            android:name=".utils.MyBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name=".DatePicker"
+            android:label="@string/title_activity_date_picker"
+            android:theme="@style/Theme.Transparent" />
     </application>
 
 </manifest>

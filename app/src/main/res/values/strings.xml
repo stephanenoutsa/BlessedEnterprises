@@ -49,5 +49,18 @@
     <string name="count_indicator">Total count:&#160;</string>
     <string name="clear_log"><u>Clear log</u></string>
     <string name="clear_log_warning">Are you sure you want to clear the log?</string>
+    <string name="filter_text">Filter</string>
+    <string-array name="filter_options">
+        <item>Last 7 days</item>
+        <item>By month</item>
+        <item>All</item>
+    </string-array>
+    <string name="no_users">Nothing to display</string>
     <!-- End of AdminPanel activity literature -->
+
+    <!-- Start of DatePicker activity literature -->
+    <string name="title_activity_date_picker">Date Picker</string>
+    <string name="year_text">Year:&#160;</string>
+    <string name="next_text">Next</string>
+    <!-- End of DatePicker activity literature -->
 </resources>
