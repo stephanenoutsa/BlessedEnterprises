@@ -15,7 +15,7 @@
     tools:showIn="@layout/activity_admin_panel">
 
     <ListView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:id="@+id/listView" />
@@ -49,6 +49,29 @@
             android:layout_below="@+id/countIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:gravity="end"
+            android:id="@+id/spinner"
+            android:popupBackground="@color/colorAccent"
+            android:dropDownSelector="@color/colorPrimaryDark"
+            android:dropDownWidth="wrap_content"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/spinner"
+            android:layout_alignLeft="@+id/spinner"
+            android:layout_below="@+id/spinner"
+            android:textColor="@android:color/white"
+            android:background="@color/colorAccent"
+            android:text="@string/filter_text"
+            android:id="@+id/filter"
+            android:onClick="onClickFilter" />
 
     </RelativeLayout>
 
