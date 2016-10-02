@@ -81,6 +81,11 @@ public class AdminPanel extends AppCompatActivity {
             users = dbHandler.getAllUsers();
             users.remove(0);
             Collections.reverse(users);
+
+            if (users.isEmpty()) {
+                Toast.makeText(context, getString(R.string.no_users), Toast.LENGTH_SHORT).show();
+            }
+
             list = new ArrayList<>();
 
             for(int i = 0; i < users.size(); i++) {
@@ -172,9 +177,7 @@ public class AdminPanel extends AppCompatActivity {
             }
 
             if (userGroup.isEmpty()) {
-                Toast.makeText(context, "Empty userGroup list", Toast.LENGTH_SHORT).show();
-            } else {
-
+                Toast.makeText(context, getString(R.string.no_users), Toast.LENGTH_SHORT).show();
             }
 
             list = new ArrayList<>();
@@ -272,6 +275,10 @@ public class AdminPanel extends AppCompatActivity {
                 } catch (ParseException pe) {
                     pe.printStackTrace();
                 }
+            }
+
+            if (userGroup.isEmpty()) {
+                Toast.makeText(context, getString(R.string.no_users), Toast.LENGTH_SHORT).show();
             }
 
             list = new ArrayList<>();
