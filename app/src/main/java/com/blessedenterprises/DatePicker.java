@@ -85,7 +85,9 @@ public class DatePicker extends AppCompatActivity {
             String date = user.getDate();
             String[] details = date.split("/");
             String yr = details[2];
-            years.add(yr);
+            if (!years.contains(yr)) {
+                years.add(yr);
+            }
         }
 
         listView = (ListView) findViewById(R.id.listView);
