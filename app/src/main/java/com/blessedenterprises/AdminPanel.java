@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.blessedenterprises.adapters.LogAdapter;
 import com.blessedenterprises.dbhandlers.MyDBHandler;
 import com.blessedenterprises.models.User;
+import com.blessedenterprises.utils.WriteExcel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -374,6 +375,16 @@ public class AdminPanel extends AppCompatActivity {
                 overridePendingTransition(0, 0);
                 startActivity(j);
                 overridePendingTransition(0, 0);
+        }
+    }
+
+    public void onClickGenerate(View view) {
+        WriteExcel writeExcel = new WriteExcel();
+        writeExcel.setOutputFile(context);
+        try {
+            writeExcel.write();
+        } catch (Exception e) {
+            Toast.makeText(context, getString(R.string.generate_failed), Toast.LENGTH_SHORT).show();
         }
     }
 

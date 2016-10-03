@@ -57,6 +57,9 @@
         <item>All</item>
     </string-array>
     <string name="no_users">Nothing to display</string>
+    <string name="generate_sheet">Generate Excel sheet</string>
+    <string name="generate_success">Excel file generated</string>
+    <string name="generate_failed">Couldn\'t generate excel sheet</string>
     <!-- End of AdminPanel activity literature -->
 
     <!-- Start of DatePicker activity literature -->
