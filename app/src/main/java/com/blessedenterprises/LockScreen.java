@@ -119,7 +119,7 @@ public class LockScreen extends AppCompatActivity {
                         Toast.makeText(context, getString(R.string.host_error), Toast.LENGTH_LONG).show();
                     } else {
                         result = capitalize(userName.getText().toString().trim());
-                        if (validate(result)) {
+                        if (validate(result, "user")) {
                             date = new Date();
                             DateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
                             DateFormat df1 = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a", Locale.ENGLISH);
@@ -225,24 +225,36 @@ public class LockScreen extends AppCompatActivity {
         }
     }
 
-    public boolean validate(String name) {
+    public boolean validate(String name, String field) {
         boolean check = true;
 
         if (name.equals("")) {
             check = false;
-            userName.setError(getString(R.string.no_name));
+            if (field.equals("user")) {
+                userName.setError(getString(R.string.no_name));
+            } else {
+                nameField.setError(getString(R.string.no_name));
+            }
         } else {
             String[] words = name.split(" ");
             int num = words.length;
 
             if (num < 2) {
-                userName.setError(getString(R.string.short_name));
                 check = false;
+                if (field.equals("user")) {
+                    userName.setError(getString(R.string.short_name));
+                } else {
+                    nameField.setError(getString(R.string.short_name));
+                }
             }
 
             if (num > 3) {
-                userName.setError(getString(R.string.long_name));
                 check = false;
+                if (field.equals("user")) {
+                    userName.setError(getString(R.string.long_name));
+                } else {
+                    nameField.setError(getString(R.string.long_name));
+                }
             }
 
             for (String word : words) {
@@ -250,48 +262,19 @@ public class LockScreen extends AppCompatActivity {
                 Matcher matcher = pattern.matcher(word);
                 if (!matcher.matches()) {
                     check = false;
-                    userName.setError(getString(R.string.invalid_name));
+                    if (field.equals("user")) {
+                        userName.setError(getString(R.string.invalid_name));
+                    } else {
+                        nameField.setError(getString(R.string.invalid_name));
+                    }
                 }
                 if (word.length() < 2) {
                     check = false;
-                    userName.setError(getString(R.string.invalid_name));
-                }
-            }
-        }
-
-        return check;
-    }
-
-    public boolean validateHost(String name) {
-        boolean check = true;
-
-        if (name.equals("")) {
-            check = false;
-            nameField.setError(getString(R.string.no_name));
-        } else {
-            String[] words = name.split(" ");
-            int num = words.length;
-
-            if (num < 2) {
-                nameField.setError(getString(R.string.short_name));
-                check = false;
-            }
-
-            if (num > 3) {
-                nameField.setError(getString(R.string.long_name));
-                check = false;
-            }
-
-            for (String word : words) {
-                Pattern pattern = Pattern.compile("[a-zA-Z]+");
-                Matcher matcher = pattern.matcher(word);
-                if (!matcher.matches()) {
-                    check = false;
-                    nameField.setError(getString(R.string.invalid_name));
-                }
-                if (word.length() < 2) {
-                    check = false;
-                    nameField.setError(getString(R.string.invalid_name));
+                    if (field.equals("user")) {
+                        userName.setError(getString(R.string.invalid_name));
+                    } else {
+                        nameField.setError(getString(R.string.invalid_name));
+                    }
                 }
             }
         }
@@ -305,7 +288,7 @@ public class LockScreen extends AppCompatActivity {
 
         String hostName = capitalize(nameField.getText().toString().trim());
 
-        if (validateHost(hostName)) {
+        if (validate(hostName, "host")) {
             Intent i = new Intent(context, AdminCheck.class);
             i.putExtra("previous", "host");
             i.putExtra("host", hostName);
