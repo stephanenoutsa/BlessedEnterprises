@@ -43,6 +43,9 @@ public class LogAdapter extends ArrayAdapter<String[]> {
         String logoutDetails = log[4];
         String[] logoutTimes = logoutDetails.split(" ");
         String logout;
+        String host = log[5];
+        String line = log[6];
+
         if (logoutDetails.equals("Still active")) {
             logout = logoutDetails;
         } else {
@@ -132,6 +135,12 @@ public class LogAdapter extends ArrayAdapter<String[]> {
                 e.printStackTrace();
             }
         }
+
+        TextView hostRow = (TextView) customView.findViewById(R.id.hostRow);
+        hostRow.setText(host);
+
+        TextView lineRow = (TextView) customView.findViewById(R.id.lineRow);
+        lineRow.setText(line);
 
         return customView;
     }

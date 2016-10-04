@@ -94,9 +94,11 @@ public class AdminPanel extends AppCompatActivity {
                 String date = users.get(i).getDate();
                 String login = users.get(i).getLoginTime();
                 String logout = users.get(i).getLogoutTime();
+                String host = users.get(i).getHost();
+                String line = users.get(i).getLine();
                 int sn = i + 1;
                 String snStr = String.valueOf(sn) + ")";
-                String[] details = {snStr, name, date, login, logout};
+                String[] details = {snStr, name, date, login, logout, host, line};
                 list.add(details);
             }
 
@@ -188,9 +190,11 @@ public class AdminPanel extends AppCompatActivity {
                 String date = userGroup.get(i).getDate();
                 String login = userGroup.get(i).getLoginTime();
                 String logout = userGroup.get(i).getLogoutTime();
+                String host = users.get(i).getHost();
+                String line = users.get(i).getLine();
                 int sn = i + 1;
                 String snStr = String.valueOf(sn) + ")";
-                String[] details = {snStr, name, date, login, logout};
+                String[] details = {snStr, name, date, login, logout, host, line};
                 list.add(details);
             }
 
@@ -289,9 +293,11 @@ public class AdminPanel extends AppCompatActivity {
                 String date = userGroup.get(i).getDate();
                 String login = userGroup.get(i).getLoginTime();
                 String logout = userGroup.get(i).getLogoutTime();
+                String host = users.get(i).getHost();
+                String line = users.get(i).getLine();
                 int sn = i + 1;
                 String snStr = String.valueOf(sn) + ")";
-                String[] details = {snStr, name, date, login, logout};
+                String[] details = {snStr, name, date, login, logout, host, line};
                 list.add(details);
             }
 

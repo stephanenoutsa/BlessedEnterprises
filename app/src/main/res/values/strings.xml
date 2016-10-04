@@ -26,6 +26,20 @@
     <string name="logout_no">No</string>
     <string name="admin_panel"><u>Admin Panel</u></string>
     <string name="status_indicator">Status:&#160;</string>
+    <string name="host_error">
+        Please ask the host to fill their fields first!\nWe apologize for the inconvenience.
+    </string>
+    <string name="host_section"><b>Host Section</b></string>
+    <string name="name_hint">Host Name</string>
+    <string name="host_label"><b>Host:&#160;</b></string>
+    <string name="line_label"><b>Line:&#160;</b></string>
+    <string-array name="line_options">
+        <item>Buea - Yaoundé</item>
+        <item>Yaoundé - Buea</item>
+        <item>Limbe - Yaoundé</item>
+        <item>Yaoundé - Limbe</item>
+    </string-array>
+    <string name="submit">Submit</string>
     <!-- End of LockScreen activity literature -->
 
     <!-- Start of AppsLauncher activity literature -->

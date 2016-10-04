@@ -135,4 +135,111 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/row4"
+        android:layout_below="@+id/row3"
+        android:background="@android:color/transparent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:padding="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/host_section"
+            android:textColor="@android:color/white"
+            android:background="@color/colorPrimaryDark"
+            android:id="@+id/hostSection"
+            android:gravity="center"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/nameLabel"
+            android:background="@color/colorPrimary"
+            android:layout_below="@+id/hostSection"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/name_label"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:padding="5dp"
+            android:id="@+id/nameField"
+            android:background="@drawable/rectangular_shape"
+            android:textColor="@color/colorAccent"
+            android:layout_below="@id/hostSection"
+            android:layout_toEndOf="@+id/nameLabel"
+            android:layout_toRightOf="@+id/nameLabel"
+            android:maxLength="52"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/lineLabel"
+            android:background="@color/colorPrimary"
+            android:layout_below="@+id/nameLabel"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignStart="@+id/nameLabel"
+            android:layout_alignLeft="@+id/nameLabel"
+            android:layout_alignEnd="@+id/nameLabel"
+            android:layout_alignRight="@+id/nameLabel"
+            android:text="@string/line_label"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nameLabel"
+            android:layout_toEndOf="@id/lineLabel"
+            android:layout_toRightOf="@id/lineLabel"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_alignStart="@id/nameField"
+            android:layout_alignLeft="@id/nameField"
+            android:layout_alignBottom="@id/lineLabel"
+            android:id="@+id/spinner"
+            android:popupBackground="@color/colorAccent"
+            android:dropDownSelector="@color/colorPrimaryDark"
+            android:dropDownWidth="wrap_content"/>
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:text="@string/submit"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/lineLabel"
+            android:layout_centerHorizontal="true"
+            android:background="@color/colorAccent"
+            android:id="@+id/submit"
+            android:onClick="onClickSubmit"/>
+
+    </RelativeLayout>
+
 </RelativeLayout>

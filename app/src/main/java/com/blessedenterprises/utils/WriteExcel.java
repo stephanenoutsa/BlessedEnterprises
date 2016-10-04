@@ -120,6 +120,8 @@ public class WriteExcel {
         addCaption(sheet, 3, 0, "Login Time");
         addCaption(sheet, 4, 0, "Logout Time");
         addCaption(sheet, 5, 0, "Session Length");
+        addCaption(sheet, 6, 0, "Host");
+        addCaption(sheet, 7, 0, "Line");
     }
 
     private boolean createContent(WritableSheet sheet) throws WriteException, RowsExceededException {
@@ -130,30 +132,24 @@ public class WriteExcel {
         if (users.size() > 1) {
             users.remove(0);
             int sn;
-            String name, date, loginDetails, login, logoutDetails, logout, session = "";
+            String name, date, login, logout, session = "", host, line;
             Date loginTime, logoutTime;
             SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a", Locale.ENGLISH);
             for (int i = 0; i < users.size(); i++) {
                 sn = i + 1;
                 name = users.get(i).getName();
                 date = users.get(i).getDate();
-                loginDetails = users.get(i).getLoginTime();
-                String[] loginTimes = loginDetails.split(" ");
-                login = loginTimes[1] + " " + loginTimes[2];
-                logoutDetails = users.get(i).getLogoutTime();
-                String[] logoutTimes = logoutDetails.split(" ");
-                if (logoutDetails.equals("Still active")) {
-                    logout = logoutDetails;
-                } else {
-                    logout = logoutTimes[1] + " " + logoutTimes[2];
-                }
+                login = users.get(i).getLoginTime();
+                logout = users.get(i).getLogoutTime();
+                host = users.get(i).getHost();
+                line = users.get(i).getLine();
 
-                if (logoutDetails.equals("Still active")) {
+                if (logout.equals("Still active")) {
                     try {
                         Date now = new Date();
                         String nowTime = df.format(now);
                         Date time = df.parse(nowTime);
-                        loginTime = df.parse(loginDetails);
+                        loginTime = df.parse(login);
                         long diffInMs = time.getTime() - loginTime.getTime();
                         long diffMin = TimeUnit.MILLISECONDS.toMinutes(diffInMs);
                         long diffHr = TimeUnit.MILLISECONDS.toHours(diffInMs);
@@ -178,8 +174,8 @@ public class WriteExcel {
                     }
                 } else {
                     try {
-                        loginTime = df.parse(loginDetails);
-                        logoutTime = df.parse(logoutDetails);
+                        loginTime = df.parse(login);
+                        logoutTime = df.parse(logout);
                         long diffInMs = logoutTime.getTime() - loginTime.getTime();
                         long diffMin = diffInMs / (1000 * 60);
                         long diffHr = diffMin / 60;
@@ -210,6 +206,8 @@ public class WriteExcel {
                 addLabel(sheet, 3, i + 1, login);
                 addLabel(sheet, 4, i + 1, logout);
                 addLabel(sheet, 5, i + 1, session);
+                addLabel(sheet, 6, i + 1, host);
+                addLabel(sheet, 7, i + 1, line);
             }
         } else {
             ok = false;

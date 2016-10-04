@@ -163,12 +163,14 @@ public class AdminCheck extends AppCompatActivity {
                             String logoutTime = df.format(date.getTime());
                             dbHandler.updateUser(logoutTime);
                             dbHandler.updateSession("inactive");
+                            dbHandler.deleteHost();
 
                             // Stop the ads alarm
                             Alarm alarm = new Alarm();
                             alarm.stopAlarm(context);
 
-                            finish();
+                            Intent i = new Intent(context, LockScreen.class);
+                            startActivity(i);
                         } else {
                             Toast.makeText(context, getString(R.string.wrong_code), Toast.LENGTH_SHORT).show();
                             input = "";
@@ -195,6 +197,7 @@ public class AdminCheck extends AppCompatActivity {
                             alarm.stopAlarm(context);
 
                             dbHandler.deleteAllUsers();
+                            dbHandler.deleteHost();
                             dbHandler.updateSession("inactive");
                             Intent intent = new Intent(context, AdminPanel.class);
                             finish();
@@ -204,6 +207,21 @@ public class AdminCheck extends AppCompatActivity {
                         } else if (input.equals(code)) {
                             Toast.makeText(context, getString(R.string.no_privilege), Toast.LENGTH_SHORT).show();
                             input = "";
+                        } else {
+                            Toast.makeText(context, getString(R.string.wrong_code), Toast.LENGTH_SHORT).show();
+                            input = "";
+                        }
+                        break;
+
+                    case "host":
+                        if (input.equals(code) || input.equals(superCode)) {
+                            String host = getIntent().getExtras().getString("host");
+                            String line = getIntent().getExtras().getString("line");
+
+                            dbHandler.addHost(host, line);
+
+                            Intent i = new Intent(context, LockScreen.class);
+                            startActivity(i);
                         } else {
                             Toast.makeText(context, getString(R.string.wrong_code), Toast.LENGTH_SHORT).show();
                             input = "";
