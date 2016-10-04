@@ -7,7 +7,7 @@ public class User {
 
     // Private variables
     int _uid;
-    String name, date, loginTime, logoutTime;
+    String name, date, loginTime, logoutTime, host, line;
 
     // Empty constructor
     public User() {
@@ -15,20 +15,24 @@ public class User {
     }
 
     // Constructor
-    public User(int _uid, String name, String date, String loginTime, String logoutTime) {
+    public User(int _uid, String name, String date, String loginTime, String logoutTime, String host, String line) {
         this._uid = _uid;
         this.name = name;
         this.date = date;
         this.loginTime = loginTime;
         this.logoutTime = logoutTime;
+        this.host = host;
+        this.line = line;
     }
 
     // Constructor
-    public User(String name, String date, String loginTime, String logoutTime) {
+    public User(String name, String date, String loginTime, String logoutTime, String host, String line) {
         this.name = name;
         this.date = date;
         this.loginTime = loginTime;
         this.logoutTime = logoutTime;
+        this.host = host;
+        this.line = line;
     }
 
     // Getter and Setter methods
@@ -70,5 +74,21 @@ public class User {
 
     public void setLogoutTime(String logoutTime) {
         this.logoutTime = logoutTime;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public String getLine() {
+        return line;
+    }
+
+    public void setLine(String line) {
+        this.line = line;
     }
 }
