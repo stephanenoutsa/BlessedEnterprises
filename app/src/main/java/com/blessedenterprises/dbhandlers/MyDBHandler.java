@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.blessedenterprises.models.Host;
 import com.blessedenterprises.models.User;
 
 import java.util.ArrayList;
@@ -20,18 +21,28 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "be.db";
+
     public static final String TABLE_SESSION = "session";
     public static final String SESSION_COLUMN_ID = "_sid";
     public static final String SESSION_COLUMN_STATUS = "status";
+
     public static final String TABLE_USERS = "users";
     public static final String USERS_COLUMN_ID = "_uid";
     public static final String USERS_COLUMN_NAME = "name";
     public static final String USERS_COLUMN_DATE = "date";
     public static final String USERS_COLUMN_LOGIN = "login";
     public static final String USERS_COLUMN_LOGOUT = "logout";
+    public static final String USERS_COLUMN_HOST = "host";
+    public static final String USERS_COLUMN_LINE = "line";
+
     public static final String TABLE_COUNT = "count";
-    public static final String COUNT_COLUMN_ID = "_id";
+    public static final String COUNT_COLUMN_ID = "_cid";
     public static final String COUNT_COLUMN_LOG = "log";
+
+    public static final String TABLE_HOST = "host";
+    public static final String HOST_COLUMN_ID = "_hid";
+    public static final String HOST_COLUMN_NAME = "name";
+    public static final String HOST_COLUMN_LINE = "line";
 
     public MyDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
@@ -55,12 +66,14 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 USERS_COLUMN_NAME + " TEXT " + ", " +
                 USERS_COLUMN_DATE + " TEXT " + ", " +
                 USERS_COLUMN_LOGIN + " TEXT " + ", " +
-                USERS_COLUMN_LOGOUT + " TEXT " +
+                USERS_COLUMN_LOGOUT + " TEXT " + ", " +
+                USERS_COLUMN_HOST + " TEXT " + ", " +
+                USERS_COLUMN_LINE + " TEXT " +
                 ")";
         db.execSQL(users);
 
-        // Add placeholder values for Codes table
-        addUser("null", "null", "null", "null");
+        // Add placeholder values for Users table
+        addUser("null", "null", "null", "null", "null", "null");
 
         String count = "CREATE TABLE " + TABLE_COUNT + "(" +
                 COUNT_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT " + ", " +
@@ -71,17 +84,26 @@ public class MyDBHandler extends SQLiteOpenHelper {
         // Add placeholder values for Count table
         addCount(0);
 
+        String host = "CREATE TABLE " + TABLE_HOST + "(" +
+                HOST_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT " + ", " +
+                HOST_COLUMN_NAME + " TEXT " + ", " +
+                HOST_COLUMN_LINE + " TEXT " +
+                ")";
+        db.execSQL(host);
 
+        // Add placeholder values for Host table
+        addHost("null", "null");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SESSION + ";");
-        onCreate(db);
+        /*db.execSQL("DROP TABLE IF EXISTS " + TABLE_SESSION + ";");
+        onCreate(db);*/
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS + ";");
         onCreate(db);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_COUNT + ";");
-        onCreate(db);
+        /*db.execSQL("DROP TABLE IF EXISTS " + TABLE_COUNT + ";");
+        onCreate(db);*/
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HOST + ";");
     }
 
     // Add a session in Session table
@@ -124,31 +146,18 @@ public class MyDBHandler extends SQLiteOpenHelper {
     }
 
     // Add a user in Users table
-    public void addUser(String name, String date, String login, String logout) {
+    public void addUser(String name, String date, String login, String logout, String host, String line) {
         ContentValues values = new ContentValues();
         values.put(USERS_COLUMN_NAME, name);
         values.put(USERS_COLUMN_DATE, date);
         values.put(USERS_COLUMN_LOGIN, login);
         values.put(USERS_COLUMN_LOGOUT, logout);
+        values.put(USERS_COLUMN_HOST, host);
+        values.put(USERS_COLUMN_LINE, line);
         if (db == null) {
             db = getWritableDatabase();
         }
         db.insert(TABLE_USERS, null, values);
-    }
-
-    // Check user in Users table
-    public boolean checkUser(String name) {
-        String query = "SELECT * FROM " + TABLE_USERS + " WHERE " + USERS_COLUMN_NAME + "=\'" + name + "\';";
-        if (db == null) {
-            db = getReadableDatabase();
-        }
-        Cursor c = db.rawQuery(query, null);
-
-        try {
-            return (c != null);
-        } finally {
-            c.close();
-        }
     }
 
     // Get last user from Users table
@@ -168,6 +177,8 @@ public class MyDBHandler extends SQLiteOpenHelper {
         user.setDate(c.getString(2));
         user.setLoginTime(c.getString(3));
         user.setLogoutTime(c.getString(4));
+        user.setHost(c.getString(5));
+        user.setLine(c.getString(6));
 
         c.close();
         return user;
@@ -195,6 +206,8 @@ public class MyDBHandler extends SQLiteOpenHelper {
             user.setDate(c.getString(2));
             user.setLoginTime(c.getString(3));
             user.setLogoutTime(c.getString(4));
+            user.setHost(c.getString(5));
+            user.setLine(c.getString(6));
 
             users.add(user);
 
@@ -240,8 +253,8 @@ public class MyDBHandler extends SQLiteOpenHelper {
         try {
             db.execSQL(query);
 
-            // Add placeholder values for Codes table
-            addUser("null", "null", "null", "null");
+            // Add placeholder values for Host table
+            addUser("null", "null", "null", "null", "null", "null");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -283,6 +296,55 @@ public class MyDBHandler extends SQLiteOpenHelper {
             return Integer.parseInt(c.getString(1));
         } finally {
             c.close();
+        }
+    }
+
+    // Add host to Host table
+    public void addHost(String name, String line) {
+        ContentValues values = new ContentValues();
+        values.put(HOST_COLUMN_NAME, name);
+        values.put(HOST_COLUMN_LINE, line);
+        if (db == null) {
+            db = getWritableDatabase();
+        }
+        db.insert(TABLE_HOST, null, values);
+    }
+
+    // Get host from Host table
+    public Host getHost() {
+        String query = "SELECT * FROM " + TABLE_HOST + ";";
+        if (db == null) {
+            db = getReadableDatabase();
+        }
+        Cursor c = db.rawQuery(query, null);
+
+        if (c != null)
+            c.moveToLast();
+
+        Host host = new Host();
+        host.set_hid(Integer.parseInt(c.getString(0)));
+        host.setName(c.getString(1));
+        host.setLine(c.getString(2));
+
+        try {
+            return host;
+        } finally {
+            c.close();
+        }
+    }
+
+    // Delete host from Host table
+    public void deleteHost() {
+        String query = "DELETE FROM " + TABLE_HOST + ";";
+        if (db == null)
+            db = getWritableDatabase();
+        try {
+            db.execSQL(query);
+
+            // Add placeholder values for Host table
+            addHost("null", "null");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
