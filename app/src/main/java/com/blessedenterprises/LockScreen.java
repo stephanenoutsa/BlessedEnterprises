@@ -213,9 +213,15 @@ public class LockScreen extends AppCompatActivity {
 
             for (int i = 0; i < words.length; i++) {
                 stringBuilder.append(Character.toUpperCase(words[i].charAt(0)));
-                stringBuilder.append(words[i].substring(1));
-                if (i < words.length) {
-                    stringBuilder.append(" ");
+                if (words[i].length() > 3) {
+                    for (int j = 0; j < words[i].substring(1).length(); j++) {
+                        stringBuilder.append(Character.toLowerCase(words[i].substring(1).charAt(j)));
+                    }
+                    if (i < words.length) {
+                        stringBuilder.append(" ");
+                    }
+                } else {
+                    stringBuilder.append(words[i].substring(1));
                 }
             }
 
@@ -258,7 +264,7 @@ public class LockScreen extends AppCompatActivity {
             }
 
             for (String word : words) {
-                Pattern pattern = Pattern.compile("[a-zA-Z]+");
+                Pattern pattern = Pattern.compile("(?i)[a-zçèéêîôœû]+");
                 Matcher matcher = pattern.matcher(word);
                 if (!matcher.matches()) {
                     check = false;
